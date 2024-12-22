@@ -1,7 +1,6 @@
 <script setup>
 import TheNavbar from "~/components/layouts/TheNavbar.vue";
 import TheFooter from "~/components/layouts/TheFooter.vue";
-import Navbar from "~/components/layouts/Navbar.vue";
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text;

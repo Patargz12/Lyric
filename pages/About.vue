@@ -1,7 +1,5 @@
 <script setup>
 import PageBanner from "~/components/Ui/PageBanners.vue";
-import navbar from "~/components/Layouts/navbar.vue";
-import test from "~/components/Layouts/test.vue";
 import Timeline from "~/components/Misc/timeline.vue";
 import TheNavbar from "~/components/layouts/TheNavbar.vue";
 import TheFooter from "~/components/layouts/TheFooter.vue";

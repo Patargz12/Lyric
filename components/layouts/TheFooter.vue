@@ -96,7 +96,7 @@
             </div>
             <button
               type="submit"
-              class="bg-white text-[#D84545] px-6 py-2 rounded font-semibold hover:bg-gray-100 transition-colors"
+              class="bg-white text-primary-500 px-6 py-2 rounded font-semibold hover:bg-gray-100 transition-colors"
             >
               SUBSCRIBE
             </button>
