@@ -3,7 +3,8 @@ import PageBanner from "~/components/Ui/PageBanners.vue";
 import navbar from "~/components/Layouts/navbar.vue";
 import test from "~/components/Layouts/test.vue";
 import Timeline from "~/components/Misc/timeline.vue";
-
+import TheNavbar from "~/components/layouts/TheNavbar.vue";
+import TheFooter from "~/components/layouts/TheFooter.vue";
 import LocationCard from "~/components/cards/LocationCard.vue";
 import { useBranches } from "~/composables/useBranches";
 
@@ -12,7 +13,7 @@ const { tabs, activeTab, setActiveTab, filteredLocations } = useBranches();
 
 <template>
   <div>
-    <navbar />
+    <the-navbar />
     <page-banner
       image="/about_banner.jpg"
       title="About Us"
@@ -128,7 +129,7 @@ const { tabs, activeTab, setActiveTab, filteredLocations } = useBranches();
         />
       </div>
     </section>
-    <test />
+    <the-footer />
   </div>
 </template>
 

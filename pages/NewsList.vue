@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-navbar />
+    <navbar />
     <page-banner
       image="/news_banner.jpg"
       title="News and Events"
@@ -9,13 +9,11 @@
     <category-nav />
 
     <ArticleList :articles="articles" />
-    <the-footer />
   </div>
 </template>
 
 <script setup>
-import TheNavbar from "~/components/layouts/TheNavbar.vue";
-import TheFooter from "~/components/layouts/TheFooter.vue";
+import Navbar from "@/components/layouts/Navbar.vue";
 import PageBanner from "@/components/Ui/PageBanners.vue";
 import ArticleList from "@/components/cards/ArticleList.vue";
 import CategoryNav from "@/components/cms/CategoryNav.vue";

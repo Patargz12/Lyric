@@ -48,7 +48,7 @@
               >ABOUT US</NuxtLink
             >
             <NuxtLink
-              href="/news"
+              to="/news"
               class="text-gray-700 font-semibold hover:text-gray-900"
               >NEWS & EVENTS</NuxtLink
             >

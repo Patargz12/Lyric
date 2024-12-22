@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import navbar from "~/components/Layouts/navbar.vue";
-import TheNavbar from "~/components/Layouts/TheNavbar.vue";
 import PromoCarousel from "~/components/Carousels/PromoCarousel.vue";
-import PromCarousel from "~/components/Carousels/PromCarousel.vue";
-import test from "~/components/Layouts/test.vue";
-import footer from "~/components/Layouts/test.vue";
+import TheNavbar from "~/components/layouts/TheNavbar.vue";
+import TheFooter from "~/components/layouts/TheFooter.vue";
 import LogoCarousel from "~/components/Carousels/LogoCarousel.vue";
 import leftPic from "~/components/Ui/LeftPic.vue";
 import CookieConsent from "~/components/cms/CookieConsent.vue";
@@ -22,21 +19,20 @@ const { articles, pagination, activeTab, setPage, setActiveTab } =
 
 <template>
   <div>
-    <navbar />
+    <the-navbar />
     <logo-carousel />
     <left-pic />
-    <!-- <promo-carousel /> -->
+    <promo-carousel />
 
-    <prom-carousel />
     <cookie-consent />
-        <section class="max-w-7xl mx-auto px-4 py-8 mb-8">
-          <h1 class = "text-h1 text-center mt-12 mb-16">Posts by Lyric</h1>
+    <section class="max-w-7xl mx-auto px-4 py-8 mb-8">
+      <h1 class="text-h1 text-center mt-12 mb-16">Posts by Lyric</h1>
       <!-- Tabs -->
       <div class="flex gap-5 mb-12 items-center justify-center">
         <NuxtLink
           v-for="tab in tabs"
           :key="tab"
-          to = "/news"
+          to="/news"
           :class="[
             'px-4 py-2',
             'text-md',
@@ -50,7 +46,7 @@ const { articles, pagination, activeTab, setPage, setActiveTab } =
       </div>
 
       <!-- Articles Grid -->
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ArticleCard
           v-for="article in articles"
@@ -60,12 +56,10 @@ const { articles, pagination, activeTab, setPage, setActiveTab } =
       </div>
 
       <div class="mt-12 flex items-center justify-center">
-  <secondary-button class="p-4">View All</secondary-button>
-</div>
-
-
+        <secondary-button class="p-4">View All</secondary-button>
+      </div>
     </section>
-    <test />
+    <the-footer />
   </div>
 </template>
 

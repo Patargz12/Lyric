@@ -1,7 +1,7 @@
 <script setup>
-import navbar from "~/components/Layouts/navbar.vue";
+import TheNavbar from "~/components/layouts/TheNavbar.vue";
+import TheFooter from "~/components/layouts/TheFooter.vue";
 import pageBanner from "~/components/Ui/PageBanners.vue";
-import footer from "~/components/layouts/Footer.vue";
 import test from "~/components/Layouts/test.vue";
 import { useServices } from "~/composables/useServices";
 import { useSupports } from "~/composables/useSupports";
@@ -35,7 +35,7 @@ const handleInquire = (service) => {
 
 <template>
   <div>
-    <navbar />
+    <the-navbar />
     <page-banner
       image="/services_pic.png"
       title="Services"
@@ -191,8 +191,7 @@ const handleInquire = (service) => {
       @inquire="handleInquire"
     />
 
-    <footer />
-    <test />
+    <the-footer />
   </div>
 </template>
 

@@ -14,10 +14,11 @@
 </template>
 
 <script setup>
+import Navbar from "@/components/layouts/Navbar.vue";
 import TheNavbar from "~/components/layouts/TheNavbar.vue";
 import TheFooter from "~/components/layouts/TheFooter.vue";
-import PageBanner from "@/components/Ui/PageBanners.vue";
 import ArticleList from "@/components/cards/ArticleList.vue";
+import PageBanner from "@/components/Ui/PageBanners.vue";
 import CategoryNav from "@/components/cms/CategoryNav.vue";
-const { data: articles } = await useFetch("/api/news");
+const { data: articles } = await useFetch("/api/events");
 </script>

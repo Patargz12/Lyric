@@ -1,86 +1,122 @@
 <template>
-  <div class="w-full max-w-7xl mx-auto px-4 py-8">
-    <!-- Images Container -->
-    <div class="relative w-full h-[300px] flex justify-center items-center">
-      <div class="flex items-center gap-4">
-        <div 
-          v-for="(slide, index) in slides" 
-          :key="slide.id"
-          @click="goToSlide(index)"
-          class="w-[200px] h-[200px] shrink-0 cursor-pointer transition-all duration-500 ease-in-out"
-          :class="{
-            'scale-110 z-10': currentIndex === index,
-            'scale-90 opacity-70': currentIndex !== index
-          }"
-          :style="{
-            transform: `translateX(${getSlidePosition(index)}px) ${currentIndex === index ? 'scale(1.1)' : 'scale(0.9)'}`,
-          }"
-        >
-          <img 
-            :src="slide.image" 
-            :alt="slide.title"
-            class="w-full h-full object-cover rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Pagination Dots -->
-    <div class="flex justify-center items-center space-x-3 mt-8">
-      <button
-        v-for="(slide, index) in slides"
-        :key="slide.id"
-        @click="goToSlide(index)"
-        class="w-2 h-2 rounded-full transition-all duration-200"
-        :class="currentIndex === index ? 'bg-black' : 'bg-gray-300'"
-      />
-    </div>
+  <div class="carousel-container px-8">
+    <swiper
+      :modules="[SwiperAutoplay, SwiperPagination]"
+      :slides-per-view="5"
+      :space-between="5"
+      :centered-slides="true"
+      :initial-slide="2"
+      :loop="true"
+      :autoplay="{
+        delay: 3000,
+        disableOnInteraction: false,
+      }"
+      :pagination="{
+        type: 'progressbar',
+      }"
+      :breakpoints="{
+        '320': {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        '640': {
+          slidesPerView: 3,
+          spaceBetween: 15,
+        },
+        '1024': {
+          slidesPerView: 5,
+          spaceBetween: 20,
+        },
+      }"
+      :loop-adder="true"
+      :virtual-translate-by="20"
+      class="mySwiper mt-20"
+      @swiper="onSwiper"
+    >
+      <swiper-slide
+        v-for="(image, index) in duplicatedImages"
+        :key="index"
+        @click="handleSlideClick(index % images.length)"
+      >
+        <img :src="image.src" :alt="image.alt" class="slide-image" />
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
-const slides = ref([
-  { id: 0, image: '/promo_pic1.png', title: 'TikTok Live Selling' },
-  { id: 1, image: '/promo_pic2.png', title: 'Drumsticks Display' },
-  { id: 2, image: '/promo_pic3.png', title: 'Marshall Amplifiers' },
-  { id: 3, image: '/promo_pic4.jpg', title: 'Kawai ES120' },
-  { id: 4, image: '/promo_pic5.jpg', title: 'Electric Guitars' }
-])
+const SwiperAutoplay = Autoplay;
+const SwiperPagination = Pagination;
 
-const currentIndex = ref(0)
-const SLIDE_WIDTH = 220 // Width + gap
+const swiperInstance = ref(null);
 
-const getSlidePosition = (index) => {
-  const centerIndex = Math.floor(slides.value.length / 2)
-  const offset = index - currentIndex
-  const basePosition = offset * SLIDE_WIDTH
-  return basePosition
-}
+const onSwiper = (swiper) => {
+  swiperInstance.value = swiper;
+};
 
-const goToSlide = (index) => {
-  currentIndex.value = index
-}
+const images = [
+  { src: "/promo_pic1.png", alt: "Image 1" },
+  { src: "/promo_pic2.png", alt: "Image 2" },
+  { src: "/promo_pic3.png", alt: "Image 3" },
+  { src: "/promo_pic44.png", alt: "Image 4" },
+  { src: "/promo_pic55.png", alt: "Image 5" },
+];
 
-// Auto-play functionality
-let autoplayInterval
-const startAutoplay = () => {
-  autoplayInterval = setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % slides.value.length
-  }, 5000)
-}
+const duplicatedImages = computed(() => [...images, ...images]);
 
-onMounted(() => {
-  startAutoplay()
-  return () => {
-    if (autoplayInterval) clearInterval(autoplayInterval)
+const handleSlideClick = (index) => {
+  if (swiperInstance.value) {
+    swiperInstance.value.slideToLoop(index);
   }
-})
+};
 </script>
 
 <style scoped>
-.slide-move {
-  transition: transform 0.5s ease-in-out;
+.carousel-container {
+  width: 100%;
+  max-width: 106.25rem;
+  margin: 0 auto;
+}
+
+.swiper {
+  width: 100%;
+  padding: 30px 0 50px;
+}
+
+.swiper-slide {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.swiper-slide-active {
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.slide-image {
+  width: 90%;
+  border: 3px solid #e5e7eb;
+  height: auto;
+  object-fit: contain;
+}
+
+:deep(.swiper-pagination-progressbar) {
+  background: rgba(0, 0, 0, 0.1);
+  width: 5% !important;
+  left: 50% !important;
+  margin-top: 30px !important;
+  transform: translateX(-50%) !important;
+  top: auto !important;
+  bottom: 0 !important;
+}
+
+:deep(.swiper-pagination-progressbar-fill) {
+  background: #000;
 }
 </style>

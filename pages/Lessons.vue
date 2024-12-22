@@ -1,7 +1,7 @@
 <script setup>
-import navbar from "~/components/Layouts/navbar.vue";
 import PageBanner from "~/components/Ui/PageBanners.vue";
-import test from "~/components/Layouts/test.vue";
+import TheNavbar from "~/components/layouts/TheNavbar.vue";
+import TheFooter from "~/components/layouts/TheFooter.vue";
 import LessonCard from "~/components/cards/LessonCard.vue";
 import TeacherCard from "~/components/cards/TeacherCard.vue";
 import TeacherModal from "~/components/modals/TeachersModal.vue";
@@ -72,7 +72,7 @@ const teachers = [
 
 <template>
   <div>
-    <navbar />
+    <the-navbar />
     <page-banner
       image="/lessons_banner.png"
       title="Lessons"
@@ -342,7 +342,7 @@ const teachers = [
       </div>
     </section>
 
-    <test />
+    <the-footer />
   </div>
 </template>
 
