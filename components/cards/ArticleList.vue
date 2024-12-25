@@ -1,7 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
-    <CategoryNav />
-
     <!-- Loading State -->
     <div
       v-if="isLoading"
@@ -30,8 +28,8 @@
       <article
         v-for="article in paginatedArticles"
         :key="article.id"
-        class="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-[500px]"
-        @click="navigateToArticle(article.slug)"
+        class="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border-2 flex flex-col h-[500px]"
+        @click="navigateToArticle(article)"
       >
         <div class="h-[280px] w-full">
           <img
@@ -58,7 +56,7 @@
       </article>
     </div>
 
-    <!-- Pagination section remains unchanged -->
+    <!-- Pagination -->
     <div
       v-if="totalPages > 1"
       class="mt-8 flex justify-center items-center gap-4"
@@ -116,13 +114,13 @@
 </template>
 
 <script setup>
-// Script section remains unchanged as it works correctly
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-vue-next";
 
 const props = defineProps({
   articles: {
     type: Array,
+    required: true,
     default: () => [],
   },
   isLoading: {
@@ -134,6 +132,15 @@ const props = defineProps({
     default: "",
   },
 });
+
+// Add watcher for debugging
+watch(
+  () => props.articles,
+  (newVal) => {
+    console.log("ArticleList received articles:", newVal);
+  },
+  { immediate: true }
+);
 
 const currentPage = ref(1);
 const itemsPerPage = 6;
@@ -189,8 +196,9 @@ const showLastPage = computed(() => {
   );
 });
 
-// Navigation function
-const navigateToArticle = (slug) => {
-  navigateTo(`/article/${slug}`);
+// Updated navigation function to handle article types
+const navigateToArticle = (article) => {
+  const type = article.category.toLowerCase();
+  navigateTo(`/${type}/${article.slug}`);
 };
 </script>

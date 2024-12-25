@@ -1,8 +1,7 @@
 <script setup>
 import TheNavbar from "~/components/layouts/TheNavbar.vue";
-import TheFooter from "~/components/layouts/TheFooter.vue";
+import TheFooter from "~/components/layouts/footer/Footer.vue";
 import pageBanner from "~/components/Ui/PageBanners.vue";
-import test from "~/components/Layouts/test.vue";
 import { useServices } from "~/composables/useServices";
 import { useSupports } from "~/composables/useSupports";
 import { useSetups } from "~/composables/useSetups";
@@ -16,9 +15,9 @@ const isModalOpen = ref(false);
 const selectedService = ref(null);
 
 const openModal = (service) => {
-  console.log("Opening modal with service:", service); // Add this debug log
+  console.log("Opening modal with service:", service);
   selectedService.value = service;
-  console.log("Selected service Opening Modal:", selectedService.value); // Add this debug log
+  console.log("Selected service Opening Modal:", selectedService.value);
   isModalOpen.value = true;
 };
 
@@ -28,7 +27,6 @@ const closeModal = () => {
 };
 
 const handleInquire = (service) => {
-  // Handle inquiry logic here
   console.log("Inquiry for service:", service);
 };
 </script>
@@ -44,10 +42,11 @@ const handleInquire = (service) => {
       are always performance-ready."
     />
 
-    <section class="py-12 lg:py-24">
-      <div class="grid md:grid-cols-2 gap-8 items-center px-6 lg:px-24">
-        <!-- Video Section -->
-        <div class="w-[540px] h-[500px] place-self-center">
+    <section class="py-12 lg:py-12">
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-14 px-6 lg:px-24 xl:px-[2px]"
+      >
+        <div class="w-[540px] h-[500px]">
           <video
             src="/services_vid.mp4"
             autoplay
@@ -57,8 +56,7 @@ const handleInquire = (service) => {
           ></video>
         </div>
 
-        <!-- Text Content Section -->
-        <div class="space-y-4">
+        <div class="space-y-2 max-w-md">
           <h2 class="text-gray-900 text-3xl font-bold leading-tight">
             Comprehensive Musical Solutions for Your Every Need
           </h2>
@@ -183,7 +181,6 @@ const handleInquire = (service) => {
       </div>
     </section>
 
-    <!-- Modal -->
     <ServiceModal
       :is-open="isModalOpen"
       :service="selectedService || {}"

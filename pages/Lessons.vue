@@ -1,7 +1,7 @@
 <script setup>
 import PageBanner from "~/components/Ui/PageBanners.vue";
 import TheNavbar from "~/components/layouts/TheNavbar.vue";
-import TheFooter from "~/components/layouts/TheFooter.vue";
+import TheFooter from "~/components/layouts/footer/Footer.vue";
 import LessonCard from "~/components/cards/LessonCard.vue";
 import TeacherCard from "~/components/cards/TeacherCard.vue";
 import TeacherModal from "~/components/modals/TeachersModal.vue";
@@ -11,6 +11,8 @@ import { useLessons } from "~/composables/useLessons";
 import { useRecitals } from "~/composables/useRecitals";
 import { useLocations } from "~/composables/useLocations";
 import LocationCard from "~/components/cards/LocationCard.vue";
+import LessonSection from "~/components/cms/LessonSection.vue";
+import { LessonSections } from "~/composables/constants/lesson";
 
 const { locations } = useLocations();
 const { events } = useRecitals();
@@ -83,97 +85,25 @@ const teachers = [
 
     <!-- Content Section -->
     <section>
-      <div class="lg:px-24 mt-12 mb-12">
-        <h1 class="text-center font-semibold text-4xl mb-12 mt-8">
+      <div class="lg:px-24 mt-20 mb-12">
+        <h1 class="text-center font-semibold text-h1 mb-12">
           Lyric Institute of music<br />
           and Related Arts
         </h1>
-        <div class="grid md:grid-cols-2 gap-8 items-start">
-          <div class="w-full">
-            <NuxtImg
-              src="/lessons_pic1.png"
-              alt="Lyric Institute Team"
-              class="w-full h-auto rounded-lg"
-            />
-          </div>
 
-          <div class="space-y-4 pl-6">
-            <p class="text-gray-800">
-              Lyric Piano, the company that first started as a major supplier
-              for piano parts and accessories in the Philippines, evolved by
-              venturing into music education.
-            </p>
-
-            <p class="text-gray-800">
-              Families who purchased Lyric pianos asked for an accompanying
-              curriculum which prompted Mr. Severo Panganiban to devise one for
-              a music school. Thus in 1979, 15 years after the company was
-              founded, Lyric Music School (LMS) was born.
-            </p>
-
-            <p class="text-gray-800">
-              With a curriculum based on developing and prioritizing the needs
-              of its learners, Lyric Music School was able to build on the
-              talents of its students and equipped them into being the people
-              they are now today — educators, artists, performers, school and
-              stage directors, among others.
-            </p>
-
-            <p class="text-gray-800">
-              On September 20, 2011, Lyric Music School was renamed as Lyric
-              Institute of Music and Related Arts (LIMRA) headed by Mr.
-              Panganiban's grand daughter, Maisie Anne Cristobal-Agustin.
-            </p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 items-start mt-14">
-          <!-- Text Content Section -->
-          <div class="space-y-4">
-            <p class="text-gray-800 leading-relaxed">
-              Currently in its 42nd year, the Lyric Music School, now Lyric
-              Institute of Music and Related Arts, continues to change lives by
-              honing and nurturing the talents of both its students and its
-              faculty. The school expanded into 23 branches to match the high
-              demands of the young generation today. Lyric Institute of Music
-              and Related Arts offers music lessons for people of all ages and
-              skill levels.
-            </p>
-
-            <p class="text-gray-800 leading-relaxed">
-              The school offers one-on-one lessons for Piano (children's and
-              adults' courses); Guitar (acoustic/classical, electric, and
-              Jazz/Blues/Rock classes); Bass; Drums; Violin and viola; Flute;
-              Clarinet; Voice; and Saxophone in various skill levels. There are
-              also special courses for Cello (individual lessons, group lessons,
-              and kids' level) as well as Percussion (Jazz/Latin/Hip Hop,
-              individual lessons, and group lessons). We can accommodate
-              musicians who are just starting out as well as intermediate
-              players. You are never too young or too old to learn music!
-            </p>
-
-            <button
-              class="bg-black text-white px-8 py-3 mt-6 hover:bg-gray-800 transition-colors duration-300"
-            >
-              INQUIRE NOW
-            </button>
-          </div>
-
-          <div class="w-full">
-            <img
-              src="/lessons_pic2.png"
-              alt="Lyric Institute Performance"
-              class="w-full h-auto rounded-lg"
-            />
-          </div>
-        </div>
+        <lesson-section
+          v-for="(section, index) in LessonSections"
+          :key="index"
+          v-bind="section"
+          :index="index"
+        />
       </div>
     </section>
 
     <!-- Teachers Section -->
     <section>
       <div class="container mx-auto px-4 py-12">
-        <h2 class="text-4xl font-bold text-center mb-12">Meet our Teachers</h2>
+        <h2 class="text-h1 font-bold text-center mb-12">Meet our Teachers</h2>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <teacher-card
@@ -200,7 +130,7 @@ const teachers = [
       <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
           <div class="w-1/2 pr-8">
-            <h2 class="text-h2 font-bold text-gray-900 mb-8">
+            <h2 class="text-h1 font-bold text-gray-900 mb-8">
               Comprehensive Musical Solutions for Your Every Need
             </h2>
           </div>

@@ -1,27 +1,3 @@
-<script setup>
-import TheNavbar from "~/components/layouts/TheNavbar.vue";
-import TheFooter from "~/components/layouts/footer/Footer.vue";
-
-const truncateText = (text, maxLength) => {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength) + "...";
-};
-
-import {
-  ChevronLeftIcon,
-  FacebookIcon,
-  TwitterIcon,
-  LinkIcon,
-} from "lucide-vue-next";
-
-const route = useRoute();
-const { data, pending, error } = await useFetch(
-  `/api/article/${route.params.slug}`
-);
-</script>
-
-
-
 <template>
   <div>
     <the-navbar />
@@ -75,7 +51,7 @@ const { data, pending, error } = await useFetch(
           </div>
         </div>
 
-        <!-- Dynamic Article Content -->
+        <!-- Article Content -->
         <div class="max-w-4xl mx-auto px-4">
           <div
             v-for="(item, index) in data.article.content"
@@ -104,10 +80,8 @@ const { data, pending, error } = await useFetch(
         </div>
 
         <!-- Related Articles -->
-
-        <!-- Related Articles section -->
         <div
-          v-if="data.relatedArticles.length > 0"
+          v-if="data.relatedArticles?.length > 0"
           class="max-w-4xl mx-auto px-4 py-16"
         >
           <h2 class="text-3xl font-bold mb-8">Related news</h2>
@@ -116,7 +90,7 @@ const { data, pending, error } = await useFetch(
               v-for="article in data.relatedArticles"
               :key="article.id"
               class="group cursor-pointer flex gap-6 p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors w-full"
-              @click="navigateTo(`/article/${article.slug}`)"
+              @click="navigateToArticle(article)"
             >
               <div class="relative shrink-0">
                 <img
@@ -126,14 +100,12 @@ const { data, pending, error } = await useFetch(
                 />
               </div>
               <div class="flex flex-col min-w-0 w-full">
-                <!-- Added w-full -->
                 <h3
                   class="text-lg font-bold mb-2 group-hover:text-gray-700 transition-colors truncate"
                 >
                   {{ article.title }}
                 </h3>
                 <div class="relative flex-1">
-                  <!-- Added wrapper div -->
                   <p class="text-gray-600 text-sm absolute w-full">
                     {{ article.description }}
                   </p>
@@ -141,7 +113,6 @@ const { data, pending, error } = await useFetch(
                 <div
                   class="flex items-center text-sm text-gray-500 mt-auto pt-6 gap-2"
                 >
-                  <!-- Added pt-6 -->
                   <span>{{ article.date }}</span>
                   <span>•</span>
                   <span>{{ article.category }}</span>
@@ -153,19 +124,44 @@ const { data, pending, error } = await useFetch(
       </template>
     </div>
     <the-footer />
-    <footer />
   </div>
 </template>
 
+<script setup lang="ts">
+import TheNavbar from "~/components/layouts/TheNavbar.vue";
+import TheFooter from "~/components/layouts/footer/Footer.vue";
+import {
+  ChevronLeftIcon,
+  FacebookIcon,
+  TwitterIcon,
+  LinkIcon,
+} from "lucide-vue-next";
 
+const props = defineProps({
+  type: {
+    type: String,
+    required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+  },
+});
 
+const { data, pending, error } = await useFetch(
+  `/api/${props.type}/${props.slug}`,
+  {
+    key: `${props.type}-${props.slug}`,
+  }
+);
 
+const navigateToArticle = (article: any) => {
+  navigateTo(`/${props.type}/${article.slug}`);
+  console.log(props.type);
+};
 
-<style scoped>
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>
+// Debug logging
+console.log("Data of the API", data.value);
+console.log("Type: ", props.type);
+console.log("Slug: ", props.slug);
+</script>

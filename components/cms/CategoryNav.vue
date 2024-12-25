@@ -23,8 +23,8 @@ const route = useRoute();
 
 const categories = [
   { name: "News", path: "/news" },
-  { name: "Blog", path: "/blog" },
-  { name: "Event", path: "/event" },
+  { name: "Blog", path: "/blogs" },
+  { name: "Event", path: "/events" },
   { name: "Press", path: "/press" },
 ];
 

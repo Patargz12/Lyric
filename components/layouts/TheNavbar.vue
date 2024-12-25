@@ -13,18 +13,19 @@
     </div>
 
     <!-- Main header -->
-    <header class="bg-white border-2">
+    <header class="bg-white">
       <div class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <div class="flex items-center">
             <NuxtLink to="/" class="flex items-center">
-              <NuxtImg src="/lyric_logo.png" class="h-16 w-34"> </NuxtImg>
+              <NuxtImg src="/lyric_logo.png" class="h-16 w-34" />
             </NuxtLink>
             <hr class="w-px h-20 mx-4 bg-gray-500 border-none" />
             <div class="text-gray-600 mx-8">
               <div class="text-sm">TALK TO AN EXPERT</div>
               <a
+                target="_blank"
                 href="tel:+639237029349"
                 class="text-lg h2 flex font-bold items-center"
               >
@@ -34,29 +35,19 @@
             </div>
           </div>
 
-          <!-- Talk to expert section -->
-          <div class="hidden md:flex items-center"></div>
-
-          <!-- Main navigation -->
-          <nav class="hidden lg:flex items-center space-x-8"></nav>
-
           <!-- Icons -->
           <div class="flex items-center space-x-4">
-            <NuxtLink
-              to="/About"
-              class="text-gray-700 font-semibold hover:text-gray-900"
-              >ABOUT US</NuxtLink
-            >
-            <NuxtLink
-              to="/news"
-              class="text-gray-700 font-semibold hover:text-gray-900"
-              >NEWS & EVENTS</NuxtLink
-            >
-            <NuxtLink
-              href="/contact"
-              class="text-gray-700 font-semibold hover:text-gray-900"
-              >CONTACT US</NuxtLink
-            >
+            <!-- Main navigation -->
+            <nav class="hidden lg:flex items-center mx-8 space-x-6">
+              <NuxtLink
+                v-for="link in mainLinks"
+                :key="link.text"
+                :to="link.href"
+                class="text-gray-700 font-semibold hover:text-gray-900"
+              >
+                {{ link.text }}
+              </NuxtLink>
+            </nav>
             <button class="text-gray-700 hover:text-gray-900">
               <Search class="h-6 w-6" />
             </button>
@@ -66,7 +57,10 @@
             <button class="text-gray-700 hover:text-gray-900">
               <User class="h-6 w-6" />
             </button>
-            <button class="lg:hidden text-gray-700 hover:text-gray-900">
+            <button
+              class="lg:hidden text-gray-700 hover:text-gray-900"
+              @click="isMobileMenuOpen = true"
+            >
               <Menu class="h-6 w-6" />
             </button>
           </div>
@@ -76,62 +70,18 @@
 
     <!-- Categories navigation -->
     <NavigationMenu>
-      <nav class="bg-white shadow">
+      <nav class="bg-white border-2">
         <div class="container mx-auto px-4">
           <div class="hidden lg:flex items-center justify-between">
-            <div class="relative group py-4">
+            <div
+              v-for="category in categoryLinks"
+              :key="category.text"
+              class="relative group py-4"
+            >
               <button
                 class="flex items-center font-semibold text-gray-700 hover:text-gray-900"
               >
-                WHAT'S NEW
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center font-semibold text-gray-700 hover:text-gray-900"
-              >
-                DEALS
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center font-semibold text-gray-700 hover:text-gray-900"
-              >
-                SHOP BY CATEGORY
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center font-semibold text-gray-700 hover:text-gray-900"
-              >
-                BRANDS
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center text-gray-700 font-semibold hover:text-gray-900"
-              >
-                LESSONS
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center font-semibold text-gray-700 hover:text-gray-900"
-              >
-                SERVICES
-                <ChevronDown class="h-4 w-4 ml-1" />
-              </button>
-            </div>
-            <div class="relative group py-4">
-              <button
-                class="flex items-center text-gray-700 font-semibold hover:text-gray-900"
-              >
-                SOLUTIONS
+                {{ category.text }}
                 <ChevronDown class="h-4 w-4 ml-1" />
               </button>
             </div>
@@ -140,7 +90,7 @@
       </nav>
     </NavigationMenu>
 
-    <!-- Mobile menu (hidden by default) -->
+    <!-- Mobile menu -->
     <div class="lg:hidden">
       <div
         v-if="isMobileMenuOpen"
@@ -163,37 +113,23 @@
             <X class="h-6 w-6" />
           </button>
           <nav class="mt-8 space-y-4">
-            <a href="/about" class="block text-gray-700 hover:text-gray-900"
-              >ABOUT US</a
+            <NuxtLink
+              v-for="link in mainLinks"
+              :key="link.text"
+              :to="link.href"
+              class="block text-gray-700 hover:text-gray-900"
             >
-            <a href="/news" class="block text-gray-700 hover:text-gray-900"
-              >NEWS & EVENTS</a
-            >
-            <a href="/contact" class="block text-gray-700 hover:text-gray-900"
-              >CONTACT US</a
-            >
+              {{ link.text }}
+            </NuxtLink>
             <hr class="my-4" />
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >WHAT'S NEW</a
+            <NuxtLink
+              v-for="category in categoryLinks"
+              :key="category.text"
+              to="#"
+              class="block text-gray-700 hover:text-gray-900"
             >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >DEALS</a
-            >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >SHOP BY CATEGORY</a
-            >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >BRANDS</a
-            >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >LESSONS</a
-            >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >SERVICES</a
-            >
-            <a href="#" class="block text-gray-700 hover:text-gray-900"
-              >SOLUTIONS</a
-            >
+              {{ category.text }}
+            </NuxtLink>
           </nav>
         </div>
       </div>
@@ -210,18 +146,24 @@ import {
   ShoppingCart,
   User,
   ChevronDown,
-  Music,
   Phone,
 } from "lucide-vue-next";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
 const isMobileMenuOpen = ref(false);
+
+const mainLinks = [
+  { text: "ABOUT US", href: "/about" },
+  { text: "NEWS & EVENTS", href: "/news" },
+  { text: "CONTACT US", href: "/contact" },
+];
+
+const categoryLinks = [
+  { text: "WHAT'S NEW" },
+  { text: "DEALS" },
+  { text: "SHOP BY CATEGORY" },
+  { text: "BRANDS" },
+  { text: "LESSONS" },
+  { text: "SERVICES" },
+  { text: "SOLUTIONS" },
+];
 </script>

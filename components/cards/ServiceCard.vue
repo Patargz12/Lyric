@@ -1,6 +1,6 @@
 <template>
   <div
-    class="break-inside-avoid p-4 mb-4 h-98 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-md transition-shadow duration-300 cursor-pointer"
+    class="break-inside-avoid p-4 mb-4 h-98 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg hover:outline hover:outline-primary-500 transition-all duration-100 cursor-pointer"
     @click="handleClick"
   >
     <img
